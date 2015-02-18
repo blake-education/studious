@@ -5,35 +5,47 @@ module HW01 where
 
 -- Get the last digit from a number
 lastDigit :: Integer -> Integer
-lastDigit = undefined
+lastDigit x = mod x 10
 
 -- Drop the last digit from a number
 dropLastDigit :: Integer -> Integer
-dropLastDigit = undefined
+dropLastDigit x = div x 10
 
 -- Exercise 2 -----------------------------------------
 
 toRevDigits :: Integer -> [Integer]
-toRevDigits = undefined
+toRevDigits 0 = []
+toRevDigits x | x < 0     = []
+              | otherwise =  (lastDigit x) : toRevDigits (dropLastDigit x)
+
 
 -- Exercise 3 -----------------------------------------
 
 -- Double every second number in a list starting on the left.
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther = undefined
+doubleEveryOther [] = []
+doubleEveryOther (x:[]) = [x]
+doubleEveryOther (x:(y:xs)) = x : y * 2 : doubleEveryOther xs
+
+-- doubleEveryOther list = (head list) : (head (tail list)) * 2 : doubleEveryOther (tail (tail list))
 
 -- Exercise 4 -----------------------------------------
 
 -- Calculate the sum of all the digits in every Integer.
+
+
+sumOne :: Integer -> Integer
+sumOne x = foldl (+) 0 (toRevDigits x)
+
 sumDigits :: [Integer] -> Integer
-sumDigits = undefined
+sumDigits x = foldl (+) 0 (map sumOne x)
 
 
 -- Exercise 5 -----------------------------------------
 
 -- Validate a credit card number using the above functions.
 luhn :: Integer -> Bool
-luhn = undefined
+luhn x = lastDigit (sumDigits (doubleEveryOther (toRevDigits x))) == 0
 
 -- Exercise 6 -----------------------------------------
 
