@@ -54,4 +54,10 @@ type Peg = String
 type Move = (Peg, Peg)
 
 hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
-hanoi = undefined
+hanoi 0 _ _ _ = []
+hanoi 1 a _ c = [(a, c)]
+hanoi n a b c = hanoi (n-1) a b c
+
+-- move n−1 discs from A to B. This leaves disc n alone on peg A
+-- move disc n from A to C
+-- move n−1 discs from B to C so they sit on disc n
