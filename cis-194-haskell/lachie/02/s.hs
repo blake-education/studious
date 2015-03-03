@@ -10,7 +10,7 @@ parseMessage ("E":(errno:(ts:msg))) = LogMessage (Error $ read errno) (read ts) 
 parseMessage x = Unknown (unwords x)
 
 parse :: String -> [LogMessage]
-parse s = map parseMessage . map words $ lines s
+parse = map parseMessage . map words . lines
 
 ltMessage :: LogMessage -> LogMessage -> Bool
 ltMessage (LogMessage _ ts1 _) (LogMessage _ ts2 _) = ts1 < ts2
