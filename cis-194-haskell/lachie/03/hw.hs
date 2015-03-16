@@ -9,10 +9,14 @@ unind = snd . unzip
 wu x = unind . filter x . ind
 
 isDiv x (y,_) = mod y x == 0
-countdown list = [1..(length list)]
+
 
 skips :: [a] -> [[a]]
 skips list = [ wu (isDiv m) list | m <- [1..(length list)] ]
+
+skipper n = snd . unzip . filter (\(i,_) -> i `mod` n == 0) . zip [1..] 
+
+{-test = skipper 0 "ABCD"-}
 
 
 -- ex 2
