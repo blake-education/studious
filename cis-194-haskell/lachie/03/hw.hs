@@ -45,14 +45,15 @@ histoLine list n = filter (\x -> x == n) list
 
 histo list = map (histoLine list) [0..9]
 
-maxs list = maximum $ map (length) list
+maxs = maximum . map (length)
 
 starLine max list = (replicate (length list) '*') ++ (replicate (max-(length list)) ' ')
 
 stars list = map (starLine (maxs list)) list
 
 histogram :: [Integer] -> String
-histogram list = unlines $ (reverse $ transpose $ stars $ histo list) ++ [(replicate 10 '='), ['0'..'9']]
+histogram list = unlines $ (reverse $ transpose $ stars $ histo list)
+  ++ [(replicate 10 '='), ['0'..'9']]
 
 test = histogram [1,4,5,4,6,6,3,4,2,4,9]
 
