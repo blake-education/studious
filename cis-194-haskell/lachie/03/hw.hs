@@ -1,5 +1,8 @@
 -- ex 1
 
+import Data.List
+
+
 ind :: [a] -> [(Int, a)]
 ind = zip [1..]
 
@@ -35,9 +38,23 @@ localMax (l,m,r) = m > l && m > r
 localMaxima :: [Integer] -> [Integer]
 localMaxima = untriples . filter localMax . triples
 
-test = localMaxima [2,9,5,6,1]
+{-test = localMaxima [2,9,5,6,1]-}
+
+-- ex 3
+histoLine list n = filter (\x -> x == n) list
+
+histo list = map (histoLine list) [0..9]
+
+maxs list = maximum $ map (length) list
+
+starLine max list = (replicate (length list) '*') ++ (replicate (max-(length list)) ' ')
+
+stars list = map (starLine (maxs list)) list
+
+histogram :: [Integer] -> String
+histogram list = unlines $ (reverse $ transpose $ stars $ histo list) ++ [(replicate 10 '='), ['0'..'9']]
+
+test = histogram [1,4,5,4,6,6,3,4,2,4,9]
 
 main :: IO ()
-main = print $ test
-
--- filter (filterMod 2) (ind "ABCD")
+main = putStr $ test
