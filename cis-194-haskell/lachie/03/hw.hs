@@ -38,7 +38,15 @@ localMax (l,m,r) = m > l && m > r
 localMaxima :: [Integer] -> [Integer]
 localMaxima = untriples . filter localMax . triples
 
-{-test = localMaxima [2,9,5,6,1]-}
+
+-- ex2 golfed
+t (_:_:[]) = []
+t (x:y:z:xs) = [(x,y,z)] ++ t (y:z:xs)
+
+localMaxima' :: [Integer] -> [Integer]
+localMaxima' = map (\(_,x,_) -> x) . filter (\(l,m,r) -> m > l && m > r) . t
+
+{-test = localMaxima' [2,9,5,6,1]-}
 
 -- ex 3
 histoLine list n = filter (\x -> x == n) list
@@ -59,3 +67,4 @@ test = histogram [1,4,5,4,6,6,3,4,2,4,9]
 
 main :: IO ()
 main = putStr $ test
+{-main = print $ test-}
