@@ -13,13 +13,15 @@ wu x = unind . filter x . ind
 
 isDiv x (y,_) = mod y x == 0
 
-
 skips :: [a] -> [[a]]
 skips list = [ wu (isDiv m) list | m <- [1..(length list)] ]
 
-skipper n = snd . unzip . filter (\(i,_) -> i `mod` n == 0) . zip [1..] 
+-- ex1 golfed
 
-{-test = skipper 0 "ABCD"-}
+s n = snd . unzip . filter (\(i,_) -> i `mod` n == 0) . zip [1..] 
+skips' l = [ s m l | m <- [1..(length l)] ]
+
+{-test = skips' "ABCD"-}
 
 
 -- ex 2
