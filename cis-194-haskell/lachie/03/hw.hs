@@ -26,7 +26,6 @@ skips' l = [ s m l | m <- [1..(length l)] ]
 
 
 -- ex 2
--
 
 
 triples :: [Integer] -> [(Integer,Integer,Integer)]
