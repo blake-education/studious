@@ -26,21 +26,21 @@ skips' l = [ s m l | m <- [1..(length l)] ]
 
 
 -- ex 2
+-
 
-data Triple = Triple Integer Integer Integer deriving (Eq, Show)
 
-triples :: [Integer] -> [Triple]
+triples :: [Integer] -> [(Integer,Integer,Integer)]
 triples (x1:x2:[]) = []
-triples (x1:x2:x3:xs) = [Triple x1 x2 x3] ++ triples (x2:x3:xs)
+triples (x1:x2:x3:xs) = [(x1,x2,x3)] ++ triples (x2:x3:xs)
 
-untriple :: Triple -> Integer
-untriple (Triple _ x _) = x
+untriple :: (Integer,Integer,Integer) -> Integer
+untriple (_,x,_) = x
 
-untriples :: [Triple] -> [Integer]
+untriples :: [(Integer,Integer,Integer)] -> [Integer]
 untriples = map untriple 
 
-isLocalMax :: Triple -> Bool
-isLocalMax (Triple l m r) = m > l && m > r
+isLocalMax :: (Integer,Integer,Integer) -> Bool
+isLocalMax (l,m,r) = m > l && m > r
 
 localMaxima :: [Integer] -> [Integer]
 localMaxima = untriples . filter isLocalMax . triples
